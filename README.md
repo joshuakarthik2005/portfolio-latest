@@ -32,14 +32,31 @@ npm run preview      # serves ./out on http://localhost:4173
 npx lighthouse http://localhost:4173 --view   # mobile preset by default
 ```
 
-## Deploy (Vercel)
+## Deploy (GitHub Pages, current)
 
-1. Push this folder to a GitHub repo.
-2. In Vercel, choose **New Project → Import** that repo. The framework is detected as Next.js and no settings are needed. `output: "export"` produces static files.
-3. Add the environment variable `NEXT_PUBLIC_SITE_URL=https://your-domain` (used for canonical URLs, the sitemap and Open Graph).
-4. Deploy. Optionally add a custom domain under Settings → Domains.
+The site is live at `https://joshuakarthik2005.github.io/portfolio-latest/`. It is deployed by
+`.github/workflows/deploy-pages.yml` on every push to `main`. The workflow runs lint, type-check and build, then publishes `./out`.
 
-Any static host (Netlify, Cloudflare Pages, GitHub Pages) can also serve `./out` directly.
+One-time setup: in the repo, go to **Settings → Pages → Build and deployment → Source** and choose **GitHub Actions**.
+
+The workflow sets two variables:
+
+- `NEXT_PUBLIC_BASE_PATH=/portfolio-latest`, because a project site is served from a sub-path.
+- `NEXT_PUBLIC_SITE_URL=https://joshuakarthik2005.github.io/portfolio-latest`, used for canonical URLs, the sitemap and Open Graph.
+
+If you add a custom domain, set `NEXT_PUBLIC_BASE_PATH` to an empty string in the workflow and point `NEXT_PUBLIC_SITE_URL` at the domain.
+
+To build the Pages version locally, run this in PowerShell (Git Bash rewrites `/portfolio-latest` into a Windows path):
+
+```powershell
+$env:NEXT_PUBLIC_BASE_PATH='/portfolio-latest'; $env:NEXT_PUBLIC_SITE_URL='https://joshuakarthik2005.github.io/portfolio-latest'; npm run build
+```
+
+## Deploy (Vercel, alternative)
+
+1. In Vercel, choose **New Project → Import** this repo. The framework is detected as Next.js and no settings are needed.
+2. Add `NEXT_PUBLIC_SITE_URL=https://your-domain`. Leave `NEXT_PUBLIC_BASE_PATH` unset.
+3. Deploy, then redeploy whenever you change environment variables, because they are read at build time.
 
 > `scripts/flatten-rsc.mjs` runs after `next build`. It copies Next 16's nested segment payload files to the dotted filenames the client router requests. Without it, plain static servers return 404 on client-side navigation prefetches.
 

@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import { useEffect, useId, useMemo, useRef, useState } from "react";
 import { nav, person, projects } from "@/data/content";
 import { useUI } from "./Providers";
+import { basePath } from "@/lib/site";
 
 type Item = {
   id: string;
@@ -28,7 +29,7 @@ export default function CommandPalette({ open, onClose }: { open: boolean; onClo
 
   const go = (href: string) => {
     onClose();
-    if (href.startsWith("/#") && window.location.pathname === "/") {
+    if (href.startsWith("/#") && window.location.pathname.replace(/\/$/, "") === basePath) {
       const el = document.getElementById(href.slice(2));
       if (el) {
         el.scrollIntoView({ behavior: matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth" });

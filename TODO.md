@@ -15,7 +15,7 @@ Placeholders show as dashed amber boxes marked **PLACEHOLDER**. To hide all of t
 
 ## Deployed URLs
 
-- [ ] **Site domain**: set `NEXT_PUBLIC_SITE_URL` in Vercel → Settings → Environment Variables (e.g. `https://yourname.dev`). Canonical URLs, the sitemap, robots.txt, JSON-LD and Open Graph tags all use it. Without it, the build falls back to Vercel's production URL.
+- [ ] **Site domain**: currently `https://joshuakarthik2005.github.io/portfolio-latest/` (set in `.github/workflows/deploy-pages.yml`). Update it there if you add a custom domain.
 - [ ] **ClarityLegal live demo**: optionally add `https://clarity-legal-ten.vercel.app`. See CONFLICTS.md #10.
 - [ ] **RouteX live demo**: none exists. Add one if you deploy it.
 

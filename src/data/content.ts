@@ -11,6 +11,8 @@
  * Missing assets are tracked in /TODO.md.
  */
 
+import { withBase } from "@/lib/site";
+
 /** Set to false before publishing to hide all "placeholder" boxes. */
 export const showPlaceholders = true;
 
@@ -45,7 +47,7 @@ export const person = {
     github: "https://github.com/joshuakarthik2005",
     // Verified by owner. CONFLICTS.md #3.
     linkedin: "https://www.linkedin.com/in/joshua-karthik-ashok-00881a290/",
-    resume: "/Joshua-Karthik-Ashok-Resume.pdf",
+    resume: withBase("/Joshua-Karthik-Ashok-Resume.pdf"),
   },
   resumeUpdated: "Sep 2026",
 };
