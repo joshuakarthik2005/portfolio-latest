@@ -20,6 +20,7 @@
   --accent-ring: #2f7fc7;
   --ok: #0f7a4a;
   --warn: #9a5b00;
+  --danger: #b42318;
   --land: #e7ecf2;
   --land-stroke: #c9d3de;
   --sea: #f5f9fd;
@@ -43,6 +44,7 @@
   --accent-ring: #6fb3ef;
   --ok: #4fd18b;
   --warn: #f0b45a;
+  --danger: #f87171;
   --land: #151d28;
   --land-stroke: #243142;
   --sea: #0c1219;
@@ -64,6 +66,7 @@
   --color-accent-soft: var(--accent-soft);
   --color-ok: var(--ok);
   --color-warn: var(--warn);
+  --color-danger: var(--danger);
   --font-sans: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
   --font-mono: var(--font-geist-mono), ui-monospace, SFMono-Regular, Menlo, monospace;
 }

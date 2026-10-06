@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { projects } from "@/data/content";
+import { demos, projects } from "@/data/content";
 import { ArchitectureDiagram } from "@/components/ArchitectureDiagram";
 import { Chip } from "@/components/Chip";
 import { Placeholder } from "@/components/Placeholder";
@@ -40,6 +40,7 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
   const p = projects[idx];
   const next = projects[(idx + 1) % projects.length];
   const d = p.detail;
+  const demo = demos.find((x) => x.project === p.slug);
 
   return (
     <article className="mx-auto max-w-4xl px-4 py-12 sm:px-6 sm:py-16">
@@ -69,12 +70,12 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
               <ExternalIcon width={14} height={14} />
             </a>
           ))}
-          {p.slug === "routex" && (
+          {demo && (
             <Link
-              href="/#demo"
+              href={`/#demo-${demo.id}`}
               className="inline-flex h-10 items-center gap-2 rounded-md bg-accent-solid px-4 text-sm font-medium text-accent-solid-fg hover:brightness-110"
             >
-              Try the playback demo <ArrowRightIcon width={14} height={14} />
+              Try the interactive demo <ArrowRightIcon width={14} height={14} />
             </Link>
           )}
         </div>

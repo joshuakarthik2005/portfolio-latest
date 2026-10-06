@@ -3,7 +3,6 @@ import Link from "next/link";
 import { person, proofPoints, skills } from "@/data/content";
 import { ButtonLink } from "../ButtonLink";
 import { DownloadIcon, GitHubIcon, LinkedInIcon, MailIcon, PinIcon } from "../Icons";
-import { Placeholder } from "../Placeholder";
 
 export function Hero() {
   const [first, ...rest] = person.name.split(" ");
@@ -23,9 +22,7 @@ export function Hero() {
                 priority
                 className="h-[72px] w-[72px] rounded-full border border-border object-cover"
               />
-            ) : (
-              <Placeholder label="Headshot" className="h-[72px] w-[72px] shrink-0 !gap-0 !p-1 text-[11px]" />
-            )}
+            ) : null}
             <p className="inline-flex items-center gap-2 rounded-full border border-border bg-bg-elev px-3 py-1 font-mono text-xs text-fg-muted">
               <span className="h-1.5 w-1.5 rounded-full bg-ok" aria-hidden />
               {person.status}

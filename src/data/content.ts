@@ -41,7 +41,7 @@ export const person = {
   phoneHref: "tel:+917358377346",
   // [LI] "CSE undergrad @ Amrita Vishwa Vidyapeetham, Class of 2027"
   status: "CS undergrad · Class of 2027",
-  // TODO.md: add /public/headshot.jpg and set this to "/headshot.jpg"
+  // Optional. Add /public/headshot.jpg and set this to withBase("/headshot.jpg") to show a photo in the hero.
   headshot: null as string | null,
   links: {
     github: "https://github.com/joshuakarthik2005",
@@ -477,14 +477,54 @@ export const contactCopy = {
   blurb: "Questions about my work, a role, or a project? Email is the fastest way to reach me.",
 };
 
-export const demoCopy = {
-  title: "Fleet playback",
-  kicker: "Interactive demo",
+export type DemoId = "routex" | "claritylegal" | "optiware";
+
+export const demoSection = {
+  kicker: "Interactive demos",
+  title: "Try the systems",
   intro:
-    "A lightweight, client-side take on RouteX's route playback and Gantt scheduling views. Scrub through ten days of coastal tanker trips to see each vessel's route on the map and its trip on the timeline.",
-  disclaimer:
-    "Demo on static sample data. Fleet capacities, charter rates, port coordinates, demands, and trip times come from the public RouteX repository's Challenge 7.1 dataset. The schedule itself is a hand-built illustrative plan, not RouteX solver output, and its cost figure doesn't reflect RouteX results. Coastline is schematic.",
+    "Three small, client-side demos, one per project. They run entirely in your browser on sample data: no backend, no model calls. Each one is labelled with exactly what is real and what is illustrative.",
 };
+
+export const demos: {
+  id: DemoId;
+  project: string;
+  tab: string;
+  title: string;
+  intro: string;
+  disclaimer: string;
+}[] = [
+  {
+    id: "routex",
+    project: "routex",
+    tab: "RouteX",
+    title: "Fleet playback",
+    intro:
+      "A lightweight take on RouteX's route playback and Gantt scheduling views. Scrub through ten days of coastal tanker trips to see each vessel's route on the map and its trip on the timeline.",
+    disclaimer:
+      "Static sample data. Fleet capacities, charter rates, port coordinates, demands, and trip times come from the public RouteX repository's Challenge 7.1 dataset. The schedule itself is a hand-built illustrative plan, not RouteX solver output, and its cost figure doesn't reflect RouteX results. Coastline is schematic.",
+  },
+  {
+    id: "claritylegal",
+    project: "claritylegal",
+    tab: "ClarityLegal",
+    title: "Contract analysis",
+    intro:
+      "Walk through ClarityLegal's flow on a short sample contract: run the pipeline, then explore the summary, risk flags with severity, and grounded Q&A that cites clauses and says so when the contract is silent.",
+    disclaimer:
+      "Simulated. No AI model runs here: the sample contract is fictional and every output was written in advance to illustrate the interface. Pipeline step timings are animation only, not measurements.",
+  },
+  {
+    id: "optiware",
+    project: "optiware",
+    tab: "OptiWare",
+    title: "Edge sorting",
+    intro:
+      "Watch OptiWare's flow on a simulated conveyor: items pass the camera, get classified on the edge device, are diverted to a bin, and damaged items raise an alert that flows through the cloud to the operator dashboard.",
+    disclaimer:
+      "Simulated. No model or camera runs here: item classes, confidence scores, and timings are generated for illustration and are not measurements of OptiWare. The edge-to-cloud flow follows the case study's architecture, which is itself reconstructed from the resume.",
+  },
+];
 
 export const site = {
   title: `${person.name} · ${person.role}`,

@@ -72,7 +72,7 @@ src/
     sitemap.ts, robots.ts, icon.svg, not-found.tsx
   components/
     sections/             Hero, Projects, Experience, Achievements (+ Publication), Skills, Contact
-    demo/                 DemoLoader (lazy, IntersectionObserver) + FleetDemo
+    demo/                 DemoTabs (lazy tabs) + FleetDemo, ContractDemo, EdgeSortDemo
     CommandPalette.tsx    ⌘K / Ctrl+K palette (lazy-loaded)
     Providers.tsx         theme, palette state, Konami easter egg
   data/

@@ -5,7 +5,7 @@ Placeholders show as dashed amber boxes marked **PLACEHOLDER**. To hide all of t
 
 ## Missing assets
 
-- [ ] **Headshot**: add `public/headshot.jpg` (square, at least 288×288), then set `person.headshot = "/headshot.jpg"`.
+- [ ] **Headshot (optional)**: no placeholder is shown. To add a photo, put `public/headshot.jpg` (square, at least 288×288) and set `person.headshot = withBase("/headshot.jpg")`.
 - [ ] **RouteX screenshot**: dashboard or results view. Set `projects[0].detail.media[0].src`.
 - [ ] **RouteX demo video**: route playback recording (MP4/WebM, under ~8 MB, or host on YouTube and link it). Set `media[1].src`.
 - [ ] **ClarityLegal screenshot**: the repo has GIFs (`upload.gif`, `risk.gif`, `chat.gif`…), but each is 0.8–4.5 MB. Convert one to WebP/MP4 before using it.
