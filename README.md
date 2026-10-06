@@ -1,36 +1,76 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Joshua Karthik Ashok · Portfolio
 
-## Getting Started
+Personal portfolio for a Backend & AI Systems Engineer. It's a single page with anchored sections, a case study page per project, a client-side fleet playback demo, and a ⌘K command palette.
 
-First, run the development server:
+**Stack:** Next.js 16 (App Router, static export) · TypeScript · Tailwind CSS v4 · Framer Motion (loaded only with the command palette) · Geist / Geist Mono via `next/font`.
+
+## Editing content
+
+All copy lives in **`src/data/content.ts`**: hero, proof points, projects, experience, achievements, publication, skills, contact. Components contain no hard-coded text.
+
+- Hide an experience entry: set `visible: false`.
+- Hide every placeholder box: set `showPlaceholders = false`.
+- Demo data (ports, fleet, illustrative schedule) is in `src/data/fleet-demo.ts`.
+- The resume download is `public/Joshua-Karthik-Ashok-Resume.pdf`.
+
+Original source documents are in `_sources/`. Open items are listed in `TODO.md` and source conflicts in `CONFLICTS.md`.
+
+## Run locally
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+npm install
+npm run dev          # http://localhost:3000
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Quality checks
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```bash
+npm run lint
+npm run typecheck
+npm run build        # static export to ./out (plus scripts/flatten-rsc.mjs)
+npm run preview      # serves ./out on http://localhost:4173
+npx lighthouse http://localhost:4173 --view   # mobile preset by default
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Deploy (Vercel)
 
-## Learn More
+1. Push this folder to a GitHub repo.
+2. In Vercel, choose **New Project → Import** that repo. The framework is detected as Next.js and no settings are needed. `output: "export"` produces static files.
+3. Add the environment variable `NEXT_PUBLIC_SITE_URL=https://your-domain` (used for canonical URLs, the sitemap and Open Graph).
+4. Deploy. Optionally add a custom domain under Settings → Domains.
 
-To learn more about Next.js, take a look at the following resources:
+Any static host (Netlify, Cloudflare Pages, GitHub Pages) can also serve `./out` directly.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+> `scripts/flatten-rsc.mjs` runs after `next build`. It copies Next 16's nested segment payload files to the dotted filenames the client router requests. Without it, plain static servers return 404 on client-side navigation prefetches.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Structure
 
-## Deploy on Vercel
+```
+src/
+  app/
+    layout.tsx            metadata, JSON-LD Person, theme bootstrap, header/footer
+    page.tsx              home sections
+    projects/[slug]/      case study pages (statically generated)
+    og.png/route.tsx      Open Graph image, rendered to /og.png at build time
+    sitemap.ts, robots.ts, icon.svg, not-found.tsx
+  components/
+    sections/             Hero, Projects, Experience, Achievements (+ Publication), Skills, Contact
+    demo/                 DemoLoader (lazy, IntersectionObserver) + FleetDemo
+    CommandPalette.tsx    ⌘K / Ctrl+K palette (lazy-loaded)
+    Providers.tsx         theme, palette state, Konami easter egg
+  data/
+    content.ts            all copy
+    fleet-demo.ts         demo dataset and timeline derivation
+```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Accessibility & motion
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- Semantic landmarks, a skip link, labelled sections, and a visible focus ring.
+- Theme tokens meet WCAG AA in both themes (checked with a contrast script).
+- `prefers-reduced-motion` disables CSS animation and smooth scroll, and stops the demo from autoplaying.
+- Every page is complete without animation. The demo needs JavaScript; its data is also available as a table.
+
+## Easter eggs
+
+- In the command palette, type `sudo hire joshua`.
+- On any page, enter ↑ ↑ ↓ ↓ ← → ← → B A to toggle a "solver-trace" accent. Typing `solver` in the palette does the same.

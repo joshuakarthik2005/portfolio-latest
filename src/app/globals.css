@@ -1,26 +1,148 @@
 @import "tailwindcss";
 
+@custom-variant dark (&:where(.dark, .dark *));
+
+/* Light tokens */
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --bg: #ffffff;
+  --bg-elev: #f6f8fa;
+  --bg-sunken: #eef2f6;
+  --fg: #0b1220;
+  --fg-muted: #4a5568;
+  --fg-subtle: #5f6b7a;
+  --border: #dbe2ea;
+  --border-strong: #c3ccd7;
+  /* #004F90-derived accent */
+  --accent: #004f90;
+  --accent-solid: #004f90;
+  --accent-solid-fg: #ffffff;
+  --accent-soft: #e6f0f9;
+  --accent-ring: #2f7fc7;
+  --ok: #0f7a4a;
+  --warn: #9a5b00;
+  --land: #e7ecf2;
+  --land-stroke: #c9d3de;
+  --sea: #f5f9fd;
+  color-scheme: light;
+}
+
+/* Dark (default) tokens */
+.dark {
+  --bg: #0a0e14;
+  --bg-elev: #10161f;
+  --bg-sunken: #0d1219;
+  --fg: #e6edf5;
+  --fg-muted: #a3b0bf;
+  --fg-subtle: #8593a3;
+  --border: #1e2834;
+  --border-strong: #2c3a4a;
+  --accent: #6fb3ef;
+  --accent-solid: #1d6db5;
+  --accent-solid-fg: #ffffff;
+  --accent-soft: #0f2133;
+  --accent-ring: #6fb3ef;
+  --ok: #4fd18b;
+  --warn: #f0b45a;
+  --land: #151d28;
+  --land-stroke: #243142;
+  --sea: #0c1219;
+  color-scheme: dark;
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-bg: var(--bg);
+  --color-bg-elev: var(--bg-elev);
+  --color-bg-sunken: var(--bg-sunken);
+  --color-fg: var(--fg);
+  --color-fg-muted: var(--fg-muted);
+  --color-fg-subtle: var(--fg-subtle);
+  --color-border: var(--border);
+  --color-border-strong: var(--border-strong);
+  --color-accent: var(--accent);
+  --color-accent-solid: var(--accent-solid);
+  --color-accent-solid-fg: var(--accent-solid-fg);
+  --color-accent-soft: var(--accent-soft);
+  --color-ok: var(--ok);
+  --color-warn: var(--warn);
+  --font-sans: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-geist-mono), ui-monospace, SFMono-Regular, Menlo, monospace;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 5rem;
+  -webkit-text-size-adjust: 100%;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--bg);
+  color: var(--fg);
+  font-family: var(--font-sans);
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+}
+
+::selection {
+  background: var(--accent-solid);
+  color: var(--accent-solid-fg);
+}
+
+@layer base {
+  :focus-visible {
+    outline: 2px solid var(--accent-ring);
+    outline-offset: 2px;
+  }
+}
+
+/* Subtle engineering grid behind the hero */
+.grid-bg {
+  /* Fade overlay instead of mask-image: cheaper to paint on mobile. */
+  background-image:
+    radial-gradient(ellipse 80% 60% at 50% 0%, transparent 30%, var(--bg) 75%),
+    linear-gradient(to right, var(--border) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--border) 1px, transparent 1px);
+  background-size: 100% 100%, 48px 48px, 48px 48px;
+}
+
+.caret::after {
+  content: "";
+  display: inline-block;
+  width: 0.55em;
+  height: 1.1em;
+  margin-left: 2px;
+  vertical-align: -0.15em;
+  background: var(--accent);
+  animation: blink 1.1s steps(1) infinite;
+}
+
+@keyframes blink {
+  50% {
+    opacity: 0;
+  }
+}
+
+/* Easter egg: solver-trace accent */
+.solver-mode {
+  --accent: #3ddc97;
+  --accent-ring: #3ddc97;
+  --accent-solid: #0f7a4a;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+@media print {
+  .no-print {
+    display: none !important;
+  }
 }

@@ -39,3 +39,6 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# Private source documents (resume LaTeX, LinkedIn export). Not needed to build the site.
+/_sources/
